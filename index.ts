@@ -98,21 +98,53 @@ function createSectionDrawer({ pdfDoc }: CreateSectionTrackerProps) {
 		// 8.5 in x 11 in
 		page.setSize(pageWidth, pageHeight);
 
+		function drawCutLine([[startX, startY], [endX, endY]]: [
+			[number, number],
+			[number, number]
+		]) {
+			page.drawLine({
+				start: { x: startX, y: startY },
+				end: { x: endX, y: endY },
+				thickness: 0,
+				dashArray: [10, 10],
+			});
+		}
+
+		// Left border
+		drawCutLine([
+			[0.5, 0],
+			[0.5, pageHeight],
+		]);
+
+		// Right border
+		drawCutLine([
+			[pageWidth - 0.5, 0],
+			[pageWidth - 0.5, pageHeight],
+		]);
+
+		// Top border
+		drawCutLine([
+			[0, pageHeight],
+			[pageWidth, pageHeight],
+		]);
+
+		// Bottom border
+		drawCutLine([
+			[0, 0],
+			[pageWidth, 0],
+		]);
+
 		// Vertical line down the middle
-		page.drawLine({
-			start: { x: pageWidth / 2, y: 0 },
-			end: { x: pageWidth / 2, y: pageHeight },
-			thickness: 0,
-			dashArray: [10, 10],
-		});
+		drawCutLine([
+			[pageWidth / 2, 0],
+			[pageWidth / 2, pageHeight],
+		]);
 
 		// Horizontal line across the center
-		page.drawLine({
-			start: { x: 0, y: pageHeight / 2 },
-			end: { x: pageWidth, y: pageHeight / 2 },
-			thickness: 0,
-			dashArray: [10, 10],
-		});
+		drawCutLine([
+			[0, pageHeight / 2],
+			[pageWidth, pageHeight / 2],
+		]);
 
 		return page;
 	}
