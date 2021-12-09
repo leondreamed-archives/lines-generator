@@ -20,21 +20,20 @@ type LinesGeneratorConfig = {
 const config: LinesGeneratorConfig = {
 	centerLines: [
 		{
-			minNumLines: 3,
-			maxNumLines: 11,
+			minNumLines: 13,
+			maxNumLines: 21,
 			skipInterval: 2,
 		},
 		{
-			minNumLines: 15,
-			maxNumLines: 23,
-			skipInterval: 4,
+			minNumLines: 25,
+			maxNumLines: 33,
+			skipInterval: 4
 		},
-		{ numLines: 31 },
-		{ numLines: 39 },
-		{ numLines: 51 },
-		{ numLines: 65 },
+		{ numLines: 37 },
+		{ numLines: 43 },
+		{ numLines: 49 },
 	],
-	pageHeight: 1054,
+	pageHeight: 1053,
 	pageWidth: 816,
 };
 
@@ -134,65 +133,26 @@ function createSectionDrawer({ pdfDoc }: CreateSectionTrackerProps) {
 			[pageWidth, 0],
 		]);
 
-		// Vertical line down the middle
-		drawCutLine([
-			[pageWidth / 2, 0],
-			[pageWidth / 2, pageHeight],
-		]);
-
-		// Horizontal line across the center
-		drawCutLine([
-			[0, pageHeight / 2],
-			[pageWidth, pageHeight / 2],
-		]);
-
 		return page;
 	}
 
 	return {
 		async drawNextSection({ numCenterLines }: { numCenterLines: number }) {
-			// Note: in the PDF page, (0, 0) is the bottom-left
-			let sectionPos: { x: number; y: number };
-			switch (currentSectionIndex % 4) {
-				// Top-left section
-				case 0: {
-					currentPage = await createSectionedPage();
-					sectionPos = { x: 0, y: pageHeight / 2 };
-					break;
-				}
-				// Top-right section
-				case 1: {
-					sectionPos = { x: pageWidth / 2, y: pageHeight / 2 };
-					break;
-				}
-				// Bottom-left section
-				case 2: {
-					sectionPos = { x: 0, y: 0 };
-					break;
-				}
-				// Bottom-right section
-				case 3: {
-					sectionPos = { x: pageWidth / 2, y: 0 };
-					break;
-				}
-				default: {
-					throw new Error("No case found for page section");
-				}
-			}
+			currentPage = await createSectionedPage();
 
 			if (currentPage === undefined) {
 				throw new Error("Current page is undefined");
 			}
 
+
 			drawSection({
 				page: currentPage,
-				height: pageHeight / 2,
-				width: pageWidth / 2,
+				height: pageHeight,
+				width: pageWidth,
 				numCenterLines,
-				...sectionPos,
+				x: 0,
+				y: 0
 			});
-
-			currentSectionIndex += 1;
 		},
 	};
 }
