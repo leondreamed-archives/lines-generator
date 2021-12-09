@@ -123,8 +123,8 @@ function createSectionDrawer({ pdfDoc }: CreateSectionTrackerProps) {
 
 		// Top border
 		drawCutLine([
-			[0, pageHeight],
-			[pageWidth, pageHeight],
+			[0, pageHeight - 0.5],
+			[pageWidth, pageHeight - 0.5],
 		]);
 
 		// Bottom border
