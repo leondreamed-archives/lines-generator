@@ -33,7 +33,7 @@ const config: LinesGeneratorConfig = {
 		{ numLines: 43 },
 		{ numLines: 49 },
 	],
-	pageHeight: 1053,
+	pageHeight: 1054,
 	pageWidth: 816,
 };
 
