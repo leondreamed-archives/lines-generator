@@ -19,19 +19,11 @@ type LinesGeneratorConfig = {
 
 const config: LinesGeneratorConfig = {
 	centerLines: [
-		{
-			minNumLines: 13,
-			maxNumLines: 21,
-			skipInterval: 2,
+		{ 
+			minNumLines: 15,
+			maxNumLines: 29,
+			skipInterval: 2
 		},
-		{
-			minNumLines: 25,
-			maxNumLines: 33,
-			skipInterval: 4
-		},
-		{ numLines: 37 },
-		{ numLines: 43 },
-		{ numLines: 49 },
 	],
 	pageHeight: 1054,
 	pageWidth: 816,
@@ -132,6 +124,13 @@ function createSectionDrawer({ pdfDoc }: CreateSectionTrackerProps) {
 			[0, 0],
 			[pageWidth, 0],
 		]);
+
+		// Center line
+		drawCutLine([
+			[0, pageHeight / 2],
+			[pageWidth, pageHeight / 2],
+		]);
+
 
 		return page;
 	}
