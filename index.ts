@@ -20,7 +20,7 @@ type LinesGeneratorConfig = {
 const config: LinesGeneratorConfig = {
 	centerLines: [
 		{ 
-			minNumLines: 15,
+			minNumLines: 9,
 			maxNumLines: 29,
 			skipInterval: 2
 		},
